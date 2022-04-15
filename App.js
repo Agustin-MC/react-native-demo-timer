@@ -4,11 +4,14 @@ import {
   Text,
   View,
 } from 'react-native';
+import Timer from './src/components/Timer';
+import DisplayData from './src/components/DisplayData';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
+      <Timer />
+      <DisplayData />
       <StatusBar style="auto" />
     </View>
   );
