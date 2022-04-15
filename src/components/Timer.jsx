@@ -8,9 +8,11 @@ import {
   useState,
   useEffect,
 } from 'react';
+import ProgressBar from './ProgressBar';
+import TimerDisplay from './TimerDisplay';
 
 const defaultValues = {
-  timeLeft: 3,
+  timeLeft: 60,
   isStart: false,
   reset: false,
 };
@@ -88,14 +90,20 @@ const Timer = () => {
         label={'Start Timer'}
         onPress={startTimer}
       />
-      <Text>
-        {timerState.timeLeft + increase}
-      </Text>
-      <View
-        style={[
-          styles.box,
-          {width: 50},
-        ]}
+      <TimerDisplay
+        seconds={
+          timerState.timeLeft + increase
+        }
+      />
+      <ProgressBar
+        timePassed={
+          defaultValues.timeLeft -
+          timerState.timeLeft
+        }
+        totalTime={
+          defaultValues.timeLeft +
+          increase
+        }
       />
       <Button
         label={
@@ -130,11 +138,5 @@ const Timer = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  box: {
-    backgroundColor: 'green',
-  },
-});
 
 export default Timer;
