@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native';
@@ -10,7 +9,6 @@ const ProgressBar = ({
   timePassed = 0,
   totalTime = 100,
 }) => {
-  console.log(timePassed, totalTime);
   const d = useWindowDimensions();
   const maxWidth = Math.floor(
     d.width * 0.75

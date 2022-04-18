@@ -1,8 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {View, Text} from 'react-native';
 import Button from './CustomButton';
 import {
   useState,
@@ -20,8 +16,13 @@ const defaultValues = {
 const Timer = () => {
   const [timerState, setTimerState] =
     useState(defaultValues);
-  const [increase, setIncrease] =
-    useState(0);
+  const [
+    timeIncrease,
+    setTimeIncrease,
+  ] = useState(0);
+
+  const totalTimeLeft =
+    timerState.timeLeft + timeIncrease;
 
   function delay(time) {
     return new Promise((resolve) =>
@@ -33,14 +34,13 @@ const Timer = () => {
     delay(1000).then(() => {
       if (
         timerState.isStart &&
-        timerState.timeLeft + increase >
-          0
+        totalTimeLeft > 0
       ) {
         setTimerState((prevState) => {
           if (
             !prevState.isStart ||
             prevState.timeLeft +
-              increase ===
+              timeIncrease ===
               0
           )
             return prevState;
@@ -64,7 +64,7 @@ const Timer = () => {
 
   const reset = () => {
     setTimerState(defaultValues);
-    setIncrease(0);
+    setTimeIncrease(0);
   };
 
   useEffect(() => {
@@ -72,7 +72,8 @@ const Timer = () => {
       return reset();
     if (
       timerState.isStart &&
-      timerState.timeLeft + increase ===
+      timerState.timeLeft +
+        timeIncrease ===
         0
     )
       setTimerState((prev) => ({
@@ -91,9 +92,7 @@ const Timer = () => {
         onPress={startTimer}
       />
       <TimerDisplay
-        seconds={
-          timerState.timeLeft + increase
-        }
+        seconds={totalTimeLeft}
       />
       <ProgressBar
         timePassed={
@@ -102,19 +101,19 @@ const Timer = () => {
         }
         totalTime={
           defaultValues.timeLeft +
-          increase
+          timeIncrease
         }
       />
       <Button
-        label={
-          'Increase Timer by 5 Seconds'
-        }
+        label="Increase Timer by 5 Seconds"
         onPress={() =>
-          setIncrease(increase + 5)
+          setTimeIncrease(
+            timeIncrease + 5
+          )
         }
       />
       <Button
-        label={'Reset Timer'}
+        label="Reset Timer"
         onPress={() =>
           setTimerState((prev) => ({
             ...prev,
@@ -122,9 +121,7 @@ const Timer = () => {
           }))
         }
       />
-      {timerState.timeLeft +
-        increase ===
-        0 && (
+      {totalTimeLeft === 0 && (
         <View>
           <Text>
             Timer has completed

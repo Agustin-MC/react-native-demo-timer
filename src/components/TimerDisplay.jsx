@@ -7,39 +7,33 @@ import {
 const TimerDisplay = ({seconds}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.element}>
-        <Text style={styles.text}>
-          {Math.floor(seconds / 3600) <
-            10 && '0'}
-          {Math.floor(seconds / 3600)}
-        </Text>
-      </View>
-      <View style={styles.element}>
-        <Text style={styles.text}>
-          :
-        </Text>
-      </View>
-      <View style={styles.element}>
-        <Text style={styles.text}>
-          {Math.floor(seconds / 60) <
-            10 && '0'}
-          {Math.floor(seconds / 60)}
-        </Text>
-      </View>
-      <View style={styles.element}>
-        <Text style={styles.text}>
-          :
-        </Text>
-      </View>
-      <View style={styles.element}>
-        <Text style={styles.text}>
-          {seconds % 60 < 10 && '0'}
-          {seconds % 60}
-        </Text>
-      </View>
+      <Element>
+        {Math.floor(seconds / 3600) <
+          10 && '0'}
+        {Math.floor(seconds / 3600)}
+      </Element>
+      <Element>:</Element>
+      <Element>
+        {Math.floor(seconds / 60) <
+          10 && '0'}
+        {Math.floor(seconds / 60)}
+      </Element>
+      <Element>:</Element>
+      <Element>
+        {seconds % 60 < 10 && '0'}
+        {seconds % 60}
+      </Element>
     </View>
   );
 };
+
+const Element = ({children}) => (
+  <View style={styles.element}>
+    <Text style={styles.text}>
+      {children}
+    </Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
